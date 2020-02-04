@@ -1,4 +1,4 @@
-class Cell {
+abstract class Cell {
     //Class attributes
 
 
@@ -8,4 +8,9 @@ class Cell {
     }
 
     //Class functions
+    draw() {
+
+    // Rita ut kvadrat
+
+    }
 }
