@@ -1,0 +1,23 @@
+{
+  "name": "TicTakNoe",
+  "version": "1.0.0",
+  "description": "TicTakToe, but it's in reverse. So you're not suposed to get 3 in a row.\r And with each placement of a X or O the game board expands.\r The goal is to firce your oponent to get 3 in a row and with that lose.",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/FredrikMalmborg/TicTakNoe.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/FredrikMalmborg/TicTakNoe/issues"
+  },
+  "homepage": "https://github.com/FredrikMalmborg/TicTakNoe#readme",
+  "dependencies": {
+    "@types/p5": "^0.9.0"
+  }
+}
