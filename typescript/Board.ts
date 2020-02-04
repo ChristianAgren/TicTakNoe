@@ -18,7 +18,7 @@ class Board {
     generateCells() {
         for (let i = 0; i > this.layout.length; i++) {
             for (let j = 0; j > this.layout.length; i++) {
-                // generera cell
+                //generate cells
             }
         }
     }
