@@ -1,14 +1,10 @@
-
-let hej: string = "hej",
-    då: number = 0,
-    test: number = 1;
+window.addEventListener("resize", setup);
 
 function setup() {
-    background(0)
+  createCanvas(width, height);
 }
 
 function draw() {
-    noStroke()
+  background(205, 55, 55);
+  noStroke();
 }
-console.log('hej');
-
