@@ -1,3 +1,4 @@
+//This is the main .ts that runs on start-up
 window.addEventListener("resize", setup);
 
 function setup() {
