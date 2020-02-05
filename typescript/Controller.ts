@@ -19,13 +19,13 @@ class Controller {
         this.cameraY = 0
         this.distX = 0
         this.distY = 0
-        this.margin = 30
+        this.margin = 100
     }
 
     //Class functions
     public update() {
-        this.distX = (this.scene.width/2 - mouseX)*.01
-        this.distY = (this.scene.height/2 - mouseY)*.01
+        this.distX = (this.scene.width/2 - mouseX)*.005
+        this.distY = (this.scene.height/2 - mouseY)*.005
         if (mouseX+this.margin < this.scene.width/2 ||
             mouseX-this.margin > this.scene.width/2) {
                 this.cameraX+=this.distX                
@@ -37,6 +37,6 @@ class Controller {
             }
 
     public draw() {
-
+        this.board.draw()
     }
 }

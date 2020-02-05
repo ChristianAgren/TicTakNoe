@@ -7,35 +7,44 @@ class Board {
     [0, 1, 1, 1, 0],
     [0, 0, 0, 0, 0]
   ];
-
+  private cellArray: Array<Cell> = []
   //Class constructor
-  constructor() {}
+  constructor() {
+    this.generateCells()
+  }
 
   //Class methods
 
-  generateCells() {
+  public draw() {
+    this.cellArray.forEach(cell => {
+      cell.draw()
+    });
+  }
+
+
+  private generateCells() {
     // const activeCells: Array<Cell> = [];
 
     for (let i = 0; i < this.layout.length; i++) {
       for (let j = 0; j < this.layout.length; j++) {
         //generate cells
-        let size = 50;
-        let xPos = j * size;
-        let yPos = i * size;
+        let size = 400;
+        let xPos = (j * size);
+        let yPos = (i * size);
 
         if (this.layout[i][j] === 0) {
           let voidedCell = new Cell(xPos, yPos, size, 0);
-          voidedCell.draw();
+          this.cellArray.push(voidedCell)
         }
         if (this.layout[i][j] === 1) {
           let emptyCell = new Cell(xPos, yPos, size, 1);
-          emptyCell.draw();
+          this.cellArray.push(emptyCell)
         }
       }
     }
   }
 
-  addCellLayer() {
+  private addCellLayer() {
     // let generation: Array<number> = [];
 
     this.layout.push([]);
@@ -59,14 +68,10 @@ class Board {
     this.addEmptyCell()
   }
 
-  addEmptyCell() {
+  private addEmptyCell() {
     let voidedCells: Array<Array<number>> = this.countVoidedCells();
     const rng: number = Math.floor(random(voidedCells.length));
     const coordinates: Array<number> = voidedCells[rng];
-
-    console.log(coordinates);
-    console.log(voidedCells);
-    console.log(rng);
 
     if (voidedCells.length != 0) {
       for (let i = 0; i < this.layout.length; i++) {
@@ -84,7 +89,7 @@ class Board {
     }
   }
 
-  countVoidedCells() {
+  private countVoidedCells() {
     let arrayOfVoidedCells: Array<Array<number>> = [];
     for (let i = 0; i < this.layout.length; i++) {
       for (let j = 0; j < this.layout.length; j++) {
