@@ -28,7 +28,7 @@ class Board {
     for (let i = 0; i < this.layout.length; i++) {
       for (let j = 0; j < this.layout.length; j++) {
         //generate cells
-        let size = 400;
+        let size = 100;
         let xPos = (j * size);
         let yPos = (i * size);
 
