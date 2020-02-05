@@ -6,7 +6,8 @@ class Controller {
     public cameraY: number
     private distX: number
     private distY: number
-    private margin: number
+    private marginX: number
+    private marginY: number
     
     //Class constructor
     constructor() {
@@ -19,19 +20,20 @@ class Controller {
         this.cameraY = 0
         this.distX = 0
         this.distY = 0
-        this.margin = 100
+        this.marginX = windowWidth/4
+        this.marginY = windowHeight/4
     }
 
     //Class functions
     public update() {
-        this.distX = (this.scene.width/2 - mouseX)*.005
-        this.distY = (this.scene.height/2 - mouseY)*.005
-        if (mouseX+this.margin < this.scene.width/2 ||
-            mouseX-this.margin > this.scene.width/2) {
+        this.distX = (this.scene.width/2 - mouseX)*.01
+        this.distY = (this.scene.height/2 - mouseY)*.01
+        if (mouseX+this.marginX < this.scene.width/2 ||
+            mouseX-this.marginX > this.scene.width/2) {
                 this.cameraX+=this.distX                
             }
-            if (mouseY+this.margin < this.scene.height/2 ||
-                mouseY-this.margin > this.scene.height/2) {
+            if (mouseY+(this.marginY) < this.scene.height/2 ||
+                mouseY-(this.marginY) > this.scene.height/2) {
                     this.cameraY+=this.distY                 
                 }
             }
