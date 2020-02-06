@@ -67,7 +67,7 @@ class Controller {
       mouseX + this.marginX < this.scene.width / 2 ||
       mouseX - this.marginX > this.scene.width / 2
     ) {
-        if(this.cameraX >= -1000 && this.cameraX <= 1000) {
+        if(this.cameraX >= -windowWidth/2 && this.cameraX <= windowWidth/2) {
             this.cameraX += this.distX;
         }
         else {
@@ -78,7 +78,7 @@ class Controller {
       mouseY + this.marginY < this.scene.height / 2 ||
       mouseY - this.marginY > this.scene.height / 2
     ) {
-        if (this.cameraY >= -500 && this.cameraY <= 500) {
+        if (this.cameraY >= -windowHeight/2 && this.cameraY <= windowHeight/2) {
             this.cameraY += this.distY;
         }
         else {
