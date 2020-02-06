@@ -9,9 +9,11 @@ class Controller {
     private distY: number
     private marginX: number
     private marginY: number
+    private activePlayer: number
     
     //Class constructor
     constructor(canvas: p5.Renderer) {
+        this.activePlayer = 2
         this.canvas = canvas
         this.scene = {
             width: windowWidth,
@@ -36,7 +38,13 @@ class Controller {
                         mousePosX <= cell.x + cell.size/2 &&
                         mousePosY >= cell.y - cell.size/2 &&
                         mousePosY <= cell.y + cell.size/2) {
-                        cell.state = 2
+                        cell.state = this.activePlayer
+                        if (this.activePlayer === 2) {
+                            this.activePlayer = 3
+                        }
+                        else {
+                            this.activePlayer = 2
+                        }
                         this.board.addEmptyCell()
                         console.log(cell);
                         console.log(this.board.layout);
