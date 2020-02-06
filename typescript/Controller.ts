@@ -61,19 +61,29 @@ class Controller {
 
   //Class functions
   public update() {
-    this.distX = (this.scene.width / 2 - mouseX) * 0.005;
+    this.distX = (this.scene.width / 2 - mouseX) * 0.003;
     this.distY = (this.scene.height / 2 - mouseY) * 0.005;
     if (
       mouseX + this.marginX < this.scene.width / 2 ||
       mouseX - this.marginX > this.scene.width / 2
     ) {
-      this.cameraX += this.distX;
+        if(this.cameraX >= -1000 && this.cameraX <= 1000) {
+            this.cameraX += this.distX;
+        }
+        else {
+            this.cameraX -= this.distX;
+        }
     }
     if (
       mouseY + this.marginY < this.scene.height / 2 ||
       mouseY - this.marginY > this.scene.height / 2
     ) {
-      this.cameraY += this.distY;
+        if (this.cameraY >= -500 && this.cameraY <= 500) {
+            this.cameraY += this.distY;
+        }
+        else {
+            this.cameraY -= this.distY;
+        }
     }
     this.board.updateLayout();
   }
