@@ -13,7 +13,7 @@ class Cell {
     offset: number,
     indexPos: PositionPoint
   ) {
-    this.indexPos = indexPos
+    this.indexPos = indexPos;
     this.x = this.indexPos.x * size - size * offset + size / 2;
     this.y = this.indexPos.y * size - size * offset + size / 2;
     this.size = size;
@@ -23,30 +23,51 @@ class Cell {
   //Class functions
 
   public updateCellPos() {
-        let {x, y} = this.indexPos  
-        const newPos = {x: x+1, y: y+1}
-        this.indexPos = newPos
+    let { x, y } = this.indexPos;
+    const newPos = { x: x + 1, y: y + 1 };
+    this.indexPos = newPos;
   }
 
-//Class functions
-  public draw() {       
+  //Class functions
+  public draw() {
+    let distance: number = this.size / 5;
+    rectMode(CENTER);
     // Rita ut kvadrat
-    
-    if(this.state === 0){
-        fill(50)
-        
-        // console.log('drawing a voidedcell');
-    } 
-    if(this.state === 1) {
-        fill(150)
-        // console.log('drawing an emptycell');
+
+    if (this.state === 0) {
+      fill(205,55,55);
     }
-    if(this.state === 2) {
-        fill(255)
+    if (this.state === 1) {
+      fill(150);
     }
-    
+
+    if (this.state === 2) {
+      fill(222);
+      stroke(50);
+      strokeWeight(5);
+      circle(this.x, this.y, this.size / 2);
+    }
+    if (this.state === 3) {
+      fill(50);
+      stroke(222);
+
+      strokeWeight(5);
+        line(
+          this.x - this.size / 2 + distance,
+          this.y - this.size / 2+ distance,
+          this.x + this.size - this.size /2 - distance,
+          this.y + this.size - this.size /2- distance
+        );
+        line(
+          this.x - this.size / 2 + distance,
+          this.y + this.size - this.size / 2 - distance,
+          this.x + this.size - this.size / 2 - distance,
+          this.y - this.size / 2 + distance
+    }
+
+
     strokeWeight(8);
     stroke(205, 55, 55);
     rect(this.x, this.y, this.size, this.size);
-  }    
+  }
 }
