@@ -35,10 +35,10 @@ class Cell {
     // Rita ut kvadrat
 
     if (this.state === 0) {
-      fill(205,55,55);
+      fill(0, 155, 175);
     }
     if (this.state === 1) {
-      fill(150);
+      fill(222);
     }
 
     if (this.state === 2) {
@@ -67,7 +67,7 @@ class Cell {
 
 
     strokeWeight(8);
-    stroke(205, 55, 55);
+    stroke(0, 155, 175);
     rect(this.x, this.y, this.size, this.size);
   }
 }

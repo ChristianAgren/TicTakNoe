@@ -21,6 +21,16 @@ class Board {
     });
   }
 
+  public getPlayerCells(player: number): Array<Cell> {
+    const playerCellArray: Array<Cell> = []
+    this.cellArray.forEach(cell => {
+      if (cell.state === player) {
+        playerCellArray.push(cell)
+      }
+    });
+    return playerCellArray
+  }
+
   public updateLayout() {
     this.cellArray.forEach(cell => {
       if (cell.state != this.layout[cell.indexPos.y][cell.indexPos.x]) {
