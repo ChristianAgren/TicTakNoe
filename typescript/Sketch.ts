@@ -13,12 +13,12 @@ function setup() {
 
 function draw() {
   background(205, 55, 55)
-  let fps = frameRate()
-  console.log(fps);
-  translate(controller.cameraX-50, controller.cameraY-300, 10)
-  rotate(45)
-  controller.update()
+  // let fps = frameRate()
+  // console.log(fps);
+  translate(controller.cameraX, controller.cameraY, 10)
+  // rotate(45)
   controller.draw()
+  controller.update()
   fill(0)
   noStroke()
   rect(0, 0, 20, 20)
