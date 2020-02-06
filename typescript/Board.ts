@@ -7,35 +7,42 @@ class Board {
     [0, 1, 1, 1, 0],
     [0, 0, 0, 0, 0]
   ];
-
+  private cellArray: Array<Cell> = [];
   //Class constructor
-  constructor() {}
+  constructor() {
+    this.generateCells();
+  }
 
   //Class methods
 
-  generateCells() {
+  public draw() {
+    this.cellArray.forEach(cell => {
+      cell.draw();
+    });
+  }
+
+  private generateCells() {
     // const activeCells: Array<Cell> = [];
 
     for (let i = 0; i < this.layout.length; i++) {
       for (let j = 0; j < this.layout.length; j++) {
         //generate cells
-        let size = 50;
-        let xPos = j * size;
-        let yPos = i * size;
+        let size = windowHeight / (this.layout.length * 2.5);
+        let offset = this.layout.length / 2;
 
         if (this.layout[i][j] === 0) {
-          let voidedCell = new Cell(xPos, yPos, size, 0);
-          voidedCell.draw();
+          let voidedCell = new Cell(i, j, size, 0, offset);
+          this.cellArray.push(voidedCell);
         }
         if (this.layout[i][j] === 1) {
-          let emptyCell = new Cell(xPos, yPos, size, 1);
-          emptyCell.draw();
+          let emptyCell = new Cell(i, j, size, 1, offset);
+          this.cellArray.push(emptyCell);
         }
       }
     }
   }
 
-  addCellLayer() {
+  private addCellLayer() {
     // let generation: Array<number> = [];
 
     this.layout.push([]);
@@ -56,17 +63,13 @@ class Board {
       }
     });
 
-    this.addEmptyCell()
+    this.addEmptyCell();
   }
 
-  addEmptyCell() {
+  private addEmptyCell() {
     let voidedCells: Array<Array<number>> = this.countVoidedCells();
     const rng: number = Math.floor(random(voidedCells.length));
     const coordinates: Array<number> = voidedCells[rng];
-
-    console.log(coordinates);
-    console.log(voidedCells);
-    console.log(rng);
 
     if (voidedCells.length != 0) {
       for (let i = 0; i < this.layout.length; i++) {
@@ -84,7 +87,7 @@ class Board {
     }
   }
 
-  countVoidedCells() {
+  private countVoidedCells() {
     let arrayOfVoidedCells: Array<Array<number>> = [];
     for (let i = 0; i < this.layout.length; i++) {
       for (let j = 0; j < this.layout.length; j++) {
