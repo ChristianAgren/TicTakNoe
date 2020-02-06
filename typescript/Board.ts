@@ -56,7 +56,6 @@ class Board {
   }
   
   private createNewCellLayer(){
-    console.log(this.layout);
     
     for (let i = 0; i < this.layout.length; i++) {
       for (let j = 0; j < this.layout.length; j++) {
@@ -78,7 +77,6 @@ class Board {
 
     this.layout.unshift([]);
     this.layout.push([]);
-    console.log(this.layout);
     
     this.layout.forEach(arrayOfCells => {
       if (arrayOfCells.length != this.layout.length) {
@@ -105,7 +103,7 @@ class Board {
     
     if (voidedCells.length === 0) {
       this.cellArray.forEach(cell => {
-        cell.updateCellPos(this.layout.length/2)
+        cell.updateCellPos()
       });
       this.addCellLayer()
       // this.countVoidedCells()
