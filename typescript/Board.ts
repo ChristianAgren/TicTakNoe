@@ -95,6 +95,7 @@ class Board {
     });
 
     this.createNewCellLayer()
+    this.addEmptyCell()
   }
 
 
