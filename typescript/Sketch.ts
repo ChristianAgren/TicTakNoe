@@ -3,23 +3,18 @@ window.addEventListener("resize", setup);
 let controller: Controller
 
 function setup() {
-  createCanvas(windowWidth, windowHeight, WEBGL);
+  const canvas = createCanvas(windowWidth, windowHeight, WEBGL);
   frameRate(60)
   rectMode(CENTER)
   angleMode(DEGREES)
-  translate(windowWidth/2, windowHeight/2)
-  controller = new Controller()
+  controller = new Controller(canvas)
 }
 
 function draw() {
   background(205, 55, 55)
-  let fps = frameRate()
-  console.log(fps);
-  translate(controller.cameraX-50, controller.cameraY-300, 10)
-  rotate(45)
-  controller.update()
+  // let fps = frameRate()
+  // console.log(fps);
+  translate(controller.cameraX, controller.cameraY, 10)
   controller.draw()
-  fill(0)
-  noStroke()
-  rect(0, 0, 20, 20)
+  controller.update()
 }
