@@ -7,19 +7,17 @@ class Board {
     [0, 1, 1, 1, 0],
     [0, 0, 0, 0, 0]
   ];
-  private cellArray: Array<Cell> = []
-
-
+  private cellArray: Array<Cell> = [];
   //Class constructor
   constructor() {
-    this.generateCells()
+    this.generateCells();
   }
 
   //Class methods
 
   public draw() {
     this.cellArray.forEach(cell => {
-      cell.draw()
+      cell.draw();
     });
   }
 
@@ -41,16 +39,35 @@ class Board {
     for (let i = 0; i < this.layout.length; i++) {
       for (let j = 0; j < this.layout.length; j++) {
         //generate cells
-        let size = 100;
+        let size = windowHeight * .06;
+        let offset = this.layout.length/2
         let indexPos: PositionPoint = {x: j, y:i}
 
         if (this.layout[i][j] === 0) {
-          let voidedCell = new Cell(size, 0, indexPos);
+          let voidedCell = new Cell(size, 0, offset, indexPos);
           this.cellArray.push(voidedCell)
         }
         if (this.layout[i][j] === 1) {
-          let emptyCell = new Cell(size, 1, indexPos);
+          let emptyCell = new Cell(size, 1, offset, indexPos);
           this.cellArray.push(emptyCell)
+        }
+      }
+    }
+  }
+  
+  private createNewCellLayer(){
+    console.log(this.layout);
+    
+    for (let i = 0; i < this.layout.length; i++) {
+      for (let j = 0; j < this.layout.length; j++) {
+        //generate cells
+        let size = windowHeight * .06;
+        let offset = this.layout.length / 2;
+        let indexPos: PositionPoint = {x: j, y:i}
+
+        if (this.layout[i][j] === 0) {
+          let voidedCell = new Cell(size, 0, offset, indexPos);
+          this.cellArray.push(voidedCell)
         }
       }
     }
@@ -62,7 +79,7 @@ class Board {
     this.layout.unshift([]);
     this.layout.push([]);
     console.log(this.layout);
-
+    
     this.layout.forEach(arrayOfCells => {
       if (arrayOfCells.length != this.layout.length) {
         if (arrayOfCells.length === 0) {
@@ -80,29 +97,14 @@ class Board {
     this.createNewCellLayer()
   }
 
-  private createNewCellLayer(){
-    for (let i = 0; i < this.layout.length; i++) {
-      for (let j = 0; j < this.layout.length; j++) {
-        //generate cells
-        let size = 100;
-        let indexPos: PositionPoint = {x: j, y:i}
-
-        if (this.layout[i][j] === 0) {
-          let voidedCell = new Cell(size, 0, indexPos);
-          this.cellArray.push(voidedCell)
-        }
-      }
-    }
-  }
 
   public addEmptyCell() {
     let voidedCells: Array<PositionPoint> = this.countVoidedCells();
     const rng: number = Math.floor(random(voidedCells.length));
     
     if (voidedCells.length === 0) {
-      console.log('create new cells!');
       this.cellArray.forEach(cell => {
-        cell.updateCellPos()
+        cell.updateCellPos(this.layout.length/2)
       });
       this.addCellLayer()
       // this.countVoidedCells()
