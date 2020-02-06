@@ -5,7 +5,6 @@ class Cell {
   public size: number;
   public state: number;
   public indexPos: PositionPoint;
-  private offset: number
 
   //Class constructor
   constructor(
@@ -15,7 +14,6 @@ class Cell {
     indexPos: PositionPoint
   ) {
     this.indexPos = indexPos
-    this.offset = offset
     this.x = this.indexPos.x * size - size * offset + size / 2;
     this.y = this.indexPos.y * size - size * offset + size / 2;
     this.size = size;
@@ -24,7 +22,7 @@ class Cell {
 
   //Class functions
 
-  public updateCellPos(offset: number) {
+  public updateCellPos() {
         let {x, y} = this.indexPos  
         const newPos = {x: x+1, y: y+1}
         this.indexPos = newPos
