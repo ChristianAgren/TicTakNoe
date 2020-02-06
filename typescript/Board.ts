@@ -7,20 +7,19 @@ class Board {
     [0, 1, 1, 1, 0],
     [0, 0, 0, 0, 0]
   ];
-  private cellArray: Array<Cell> = []
+  private cellArray: Array<Cell> = [];
   //Class constructor
   constructor() {
-    this.generateCells()
+    this.generateCells();
   }
 
   //Class methods
 
   public draw() {
     this.cellArray.forEach(cell => {
-      cell.draw()
+      cell.draw();
     });
   }
-
 
   private generateCells() {
     // const activeCells: Array<Cell> = [];
@@ -28,17 +27,16 @@ class Board {
     for (let i = 0; i < this.layout.length; i++) {
       for (let j = 0; j < this.layout.length; j++) {
         //generate cells
-        let size = 100;
-        let xPos = (j * size);
-        let yPos = (i * size);
+        let size = windowHeight / (this.layout.length * 2.5);
+        let offset = this.layout.length / 2;
 
         if (this.layout[i][j] === 0) {
-          let voidedCell = new Cell(xPos, yPos, size, 0);
-          this.cellArray.push(voidedCell)
+          let voidedCell = new Cell(i, j, size, 0, offset);
+          this.cellArray.push(voidedCell);
         }
         if (this.layout[i][j] === 1) {
-          let emptyCell = new Cell(xPos, yPos, size, 1);
-          this.cellArray.push(emptyCell)
+          let emptyCell = new Cell(i, j, size, 1, offset);
+          this.cellArray.push(emptyCell);
         }
       }
     }
@@ -65,7 +63,7 @@ class Board {
       }
     });
 
-    this.addEmptyCell()
+    this.addEmptyCell();
   }
 
   private addEmptyCell() {
