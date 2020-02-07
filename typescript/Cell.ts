@@ -63,6 +63,7 @@ class Cell {
           this.y + this.size - this.size / 2 - distance,
           this.x + this.size - this.size / 2 - distance,
           this.y - this.size / 2 + distance
+        );
     }
 
 
