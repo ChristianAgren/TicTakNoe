@@ -10,11 +10,11 @@ class Controller {
   private marginX: number;
   private marginY: number;
   private activePlayer: number;
-  private isWin: boolean;
+  private isLoss: boolean;
 
   //Class constructor
   constructor(canvas: p5.Renderer) {
-    this.isWin = false;
+    this.isLoss = false;
     this.activePlayer = 2;
     this.canvas = canvas;
     this.scene = {
@@ -61,19 +61,37 @@ class Controller {
 
   //Class functions
   public update() {
-    this.distX = (this.scene.width / 2 - mouseX) * 0.005;
+    this.distX = (this.scene.width / 2 - mouseX) * 0.003;
     this.distY = (this.scene.height / 2 - mouseY) * 0.005;
     if (
       mouseX + this.marginX < this.scene.width / 2 ||
       mouseX - this.marginX > this.scene.width / 2
     ) {
-      this.cameraX += this.distX;
+        if(this.cameraX >= -windowWidth/2 && this.cameraX <= windowWidth/2) {
+            this.cameraX += this.distX;
+        }
+        else {
+            if (this.cameraX < -windowWidth/2) {
+                this.cameraX = -windowWidth/2
+            } else {
+                this.cameraX = windowWidth/2
+            }
+        }
     }
     if (
       mouseY + this.marginY < this.scene.height / 2 ||
       mouseY - this.marginY > this.scene.height / 2
     ) {
-      this.cameraY += this.distY;
+        if (this.cameraY >= -windowHeight/2 && this.cameraY <= windowHeight/2) {
+            this.cameraY += this.distY;
+        }
+        else {
+            if (this.cameraY < -windowHeight/2) {
+                this.cameraY = -windowHeight/2
+            } else {
+                this.cameraY = windowHeight/2
+            }
+        }
     }
     this.board.updateLayout();
   }
@@ -83,57 +101,75 @@ class Controller {
   }
 
   private checkWin(player: number, cell: Cell) {
-    //   this.horizontal();
-    //   this.vertical();
-
-    // console.log(player, cell);
-    // console.log(this.board.layout);
     
     const playerCells: Array<Cell> = this.board.getPlayerCells(player)
-    
-    if (playerCells.length >= 3) {
-        console.log(playerCells);
+    const oneArray: Array<Cell> = []
+    const twoArray: Array<Cell> = []
+    const {x, y} = cell.indexPos
+    playerCells.forEach(otherCell => {
+        if (otherCell.indexPos != cell.indexPos) {
+            const {x: otherX, y: otherY} = otherCell.indexPos
+            const distX = otherX - x
+            const distY = otherY - y
+            if (distX >= -2 && 
+                distX <= 2  &&
+                distY >= -2 &&
+                distY <= 2) {
+                    if (distX >= -1 && 
+                        distX <= 1  &&
+                        distY >= -1 &&
+                        distY <= 1) {
+                            oneArray.push(otherCell)
+                }
+                else {
+                    twoArray.push(otherCell)
+                }
+            }
+        }
+    });
+    if (oneArray.length + twoArray.length >= 2) {
+        oneArray.forEach(secondCell => {
+            
+            if (secondCell.indexPos != cell.indexPos) {
+                const {x: secondX, y: secondY} = secondCell.indexPos
+                const twoX = secondX - x
+                const twoY = secondY - y
+                
+                oneArray.forEach(thirdCell => {
+                    
+
+                    const {x: thirdX, y: thirdY} = thirdCell.indexPos
+                    const threeX = thirdX - x
+                    const threeY = thirdY - y
+                    
+                    if (twoX*-1 === threeX && twoY*-1 === threeY) {
+                        console.log(`${player} is a loser`);
+                        this.isLoss = true
+                        return
+                    }
+                    else {                        
+                        twoArray.forEach(forthCell => {
+                            const {x: fourthX, y: fourthY} = forthCell.indexPos
+                            const fourX = fourthX - x
+                            const fourY = fourthY - y
+                            if (threeX*2 === fourX && threeY*2 === fourY) {
+                                console.log(`${player} is a loser`);
+                                this.isLoss = true
+                                return
+                            }
+                        });
+                    }
+                });
+            }
+        });
     }
     
-    
-    
-    if(this.isWin) {
-        console.log(player + "Won!");
         
+    
+    
+    
+    if(this.isLoss) {
+        console.log(player + " Lost!");
     }
   }
-
-//   private horizontal(): boolean {
-//     console.log(this.board.layout);
-    
-//     this.board.layout.forEach(row => {
-//         if (row.join("").includes("222") && !this.isWin) {
-//             this.isWin = true;
-//         } else if (row.join("").includes("333") && !this.isWin) {
-//             this.isWin = true;
-//         } else if (!this.isWin) {
-//             console.log("No win HOR!");
-//         }
-//     });
-//     return this.isWin;
-// }
-
-// private vertical() {
-//     let column: Array<number> = [];
-//     console.log(this.board.layout);
-
-//     for (let i = 0; i < this.board.layout.length; i++) {
-//       for (let j = 0; j < this.board.layout.length; j++) {
-//         column.push(this.board.layout[j][i]);
-//       }
-//       if (column.join("").includes("222") && !this.isWin) {
-//         this.isWin = true;
-//       } else if (column.join("").includes("333") && !this.isWin) {
-//         this.isWin = true;
-//       } else if (!this.isWin) {
-//         console.log("No win VER!");
-//       }
-//       column = [];
-//     }
-//   }
 }
