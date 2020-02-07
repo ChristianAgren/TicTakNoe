@@ -36,7 +36,7 @@ class Controller {
     //   console.log(e, mousePosX, mousePosY);
 
       cellArray.forEach(cell => {
-        if (cell.state === 1) {
+        if (cell.state === 1 && !this.isLoss) {
           if (
             mousePosX >= cell.x - cell.size / 2 &&
             mousePosX <= cell.x + cell.size / 2 &&
@@ -52,7 +52,7 @@ class Controller {
                 this.board.addEmptyCell();
                 // console.log(cell);
                 // console.log(this.board.layout);
-                this.checkWin(this.activePlayer, cell);
+                this.checkoslovakia(this.activePlayer, cell);
           }
         }
       });
@@ -63,33 +63,35 @@ class Controller {
   public update() {
     this.distX = (this.scene.width / 2 - mouseX) * 0.003;
     this.distY = (this.scene.height / 2 - mouseY) * 0.005;
-    if (
-      mouseX + this.marginX < this.scene.width / 2 ||
-      mouseX - this.marginX > this.scene.width / 2
-    ) {
-        if(this.cameraX >= -windowWidth/2 && this.cameraX <= windowWidth/2) {
-            this.cameraX += this.distX;
-        }
-        else {
-            if (this.cameraX < -windowWidth/2) {
-                this.cameraX = -windowWidth/2
-            } else {
-                this.cameraX = windowWidth/2
+    if (!this.isLoss) {
+        if (
+          mouseX + this.marginX < this.scene.width / 2 ||
+          mouseX - this.marginX > this.scene.width / 2
+        ) {
+            if(this.cameraX >= -windowWidth/2 && this.cameraX <= windowWidth/2) {
+                this.cameraX += this.distX;
+            }
+            else {
+                if (this.cameraX < -windowWidth/2) {
+                    this.cameraX = -windowWidth/2
+                } else {
+                    this.cameraX = windowWidth/2
+                }
             }
         }
-    }
-    if (
-      mouseY + this.marginY < this.scene.height / 2 ||
-      mouseY - this.marginY > this.scene.height / 2
-    ) {
-        if (this.cameraY >= -windowHeight/2 && this.cameraY <= windowHeight/2) {
-            this.cameraY += this.distY;
-        }
-        else {
-            if (this.cameraY < -windowHeight/2) {
-                this.cameraY = -windowHeight/2
-            } else {
-                this.cameraY = windowHeight/2
+        if (
+          mouseY + this.marginY < this.scene.height / 2 ||
+          mouseY - this.marginY > this.scene.height / 2
+        ) {
+            if (this.cameraY >= -windowHeight/2 && this.cameraY <= windowHeight/2) {
+                this.cameraY += this.distY;
+            }
+            else {
+                if (this.cameraY < -windowHeight/2) {
+                    this.cameraY = -windowHeight/2
+                } else {
+                    this.cameraY = windowHeight/2
+                }
             }
         }
     }
@@ -100,7 +102,7 @@ class Controller {
     this.board.draw();
   }
 
-  private checkWin(player: number, cell: Cell) {
+  private checkoslovakia(player: number, cell: Cell) {
     
     const playerCells: Array<Cell> = this.board.getPlayerCells(player)
     const oneArray: Array<Cell> = []
@@ -127,6 +129,12 @@ class Controller {
             }
         }
     });
+    this.estonia(player, cell, oneArray, twoArray)
+  }
+
+  private estonia(player: number, cell: Cell, oneArray: Array<Cell>, twoArray: Array<Cell>) {
+    const lossArray: Array<Cell> = []
+    const {x, y} = cell.indexPos
     if (oneArray.length + twoArray.length >= 2) {
         oneArray.forEach(secondCell => {
             
@@ -135,18 +143,14 @@ class Controller {
                 const twoX = secondX - x
                 const twoY = secondY - y
                 
-                oneArray.forEach(thirdCell => {
-                    
-
+                oneArray.forEach(thirdCell => {    
                     const {x: thirdX, y: thirdY} = thirdCell.indexPos
                     const threeX = thirdX - x
                     const threeY = thirdY - y
                     
                     if (twoX*-1 === threeX && twoY*-1 === threeY) {
-                        console.log(`${player} is a loser`);
-                        cell.lossColor = true
-                        secondCell.lossColor = true
-                        thirdCell.lossColor = true
+                        lossArray.push(cell, secondCell, thirdCell)
+                        this.alterLossCellColor(lossArray)
                         this.isLoss = true
                         return
                     }
@@ -156,10 +160,8 @@ class Controller {
                             const fourX = fourthX - x
                             const fourY = fourthY - y
                             if (threeX*2 === fourX && threeY*2 === fourY) {
-                                console.log(`${player} is a loser`);
-                                cell.lossColor = true
-                                thirdCell.lossColor = true
-                                forthCell.lossColor = true
+                                lossArray.push(cell, thirdCell, forthCell)
+                                this.alterLossCellColor(lossArray)
                                 this.isLoss = true
                                 return
                             }
@@ -168,14 +170,15 @@ class Controller {
                 });
             }
         });
-    }
-    
-        
-    
-    
-    
-    if(this.isLoss) {
-        console.log(player + " Lost!");
-    }
+        if(this.isLoss) {
+            console.log(player + " Lost!");
+        }
+     }
+}
+
+  private alterLossCellColor(lossCells: Array<Cell>) {
+    lossCells.forEach(cell => {
+        cell.lossColor = true
+    });
   }
 }
