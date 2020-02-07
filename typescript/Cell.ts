@@ -5,7 +5,7 @@ class Cell {
   public size: number;
   public state: number;
   public indexPos: PositionPoint;
-  public lossColor: boolean
+  public lossColor: boolean;
 
   //Class constructor
   constructor(
@@ -34,51 +34,56 @@ class Cell {
   public draw() {
     let distance: number = this.size / 5;
     rectMode(CENTER);
+    angleMode(DEGREES)
     // Rita ut kvadrat
 
     if (this.state === 0) {
-      fill(0, 155, 175);
+      noStroke();
+      fill("#009bb000");
     }
     if (this.state === 1) {
       fill(222);
+      strokeWeight(8);
+      stroke("#009bb0");
     }
 
     if (this.state === 2) {
-        if (this.lossColor) {
-            fill('#CC5C8C')
-        } else {
-            fill(222);
-        }
+      if (this.lossColor) {
+        fill("#CC5C8C");
+      } else {
+        fill(222);
+      }
       stroke(50);
       strokeWeight(5);
       circle(this.x, this.y, this.size / 2);
+      strokeWeight(8);
+      stroke("#009bb0");
     }
     if (this.state === 3) {
-        if (this.lossColor) {
-            fill('#CC5C8C')
-        } else {
-            fill(50);
-        }
+      if (this.lossColor) {
+        fill("#CC5C8C");
+      } else {
+        fill(50);
+      }
       stroke(222);
 
       strokeWeight(5);
-        line(
-          this.x - this.size / 2 + distance,
-          this.y - this.size / 2+ distance,
-          this.x + this.size - this.size /2 - distance,
-          this.y + this.size - this.size /2- distance
-        );
-        line(
-          this.x - this.size / 2 + distance,
-          this.y + this.size - this.size / 2 - distance,
-          this.x + this.size - this.size / 2 - distance,
-          this.y - this.size / 2 + distance
-        );
+      line(
+        this.x - this.size / 2 + distance,
+        this.y - this.size / 2 + distance,
+        this.x + this.size - this.size / 2 - distance,
+        this.y + this.size - this.size / 2 - distance
+      );
+      line(
+        this.x - this.size / 2 + distance,
+        this.y + this.size - this.size / 2 - distance,
+        this.x + this.size - this.size / 2 - distance,
+        this.y - this.size / 2 + distance
+      );
+      strokeWeight(8);
+      stroke("#009bb0");
     }
 
-
-    strokeWeight(8);
-    stroke(0, 155, 175);
     rect(this.x, this.y, this.size, this.size);
   }
 }
