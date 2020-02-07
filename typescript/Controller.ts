@@ -144,6 +144,9 @@ class Controller {
                     
                     if (twoX*-1 === threeX && twoY*-1 === threeY) {
                         console.log(`${player} is a loser`);
+                        cell.lossColor = true
+                        secondCell.lossColor = true
+                        thirdCell.lossColor = true
                         this.isLoss = true
                         return
                     }
@@ -154,6 +157,9 @@ class Controller {
                             const fourY = fourthY - y
                             if (threeX*2 === fourX && threeY*2 === fourY) {
                                 console.log(`${player} is a loser`);
+                                cell.lossColor = true
+                                thirdCell.lossColor = true
+                                forthCell.lossColor = true
                                 this.isLoss = true
                                 return
                             }

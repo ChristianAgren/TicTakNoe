@@ -5,6 +5,7 @@ class Cell {
   public size: number;
   public state: number;
   public indexPos: PositionPoint;
+  public lossColor: boolean
 
   //Class constructor
   constructor(
@@ -18,6 +19,7 @@ class Cell {
     this.y = this.indexPos.y * size - size * offset + size / 2;
     this.size = size;
     this.state = state;
+    this.lossColor = false;
   }
 
   //Class functions
@@ -42,13 +44,21 @@ class Cell {
     }
 
     if (this.state === 2) {
-      fill(222);
+        if (this.lossColor) {
+            fill('#CC5C8C')
+        } else {
+            fill(222);
+        }
       stroke(50);
       strokeWeight(5);
       circle(this.x, this.y, this.size / 2);
     }
     if (this.state === 3) {
-      fill(50);
+        if (this.lossColor) {
+            fill('#CC5C8C')
+        } else {
+            fill(50);
+        }
       stroke(222);
 
       strokeWeight(5);
