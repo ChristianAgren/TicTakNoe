@@ -17,7 +17,7 @@ function setup() {
 
   controller = new Controller(canvas);
 
-  if(!playgame) {
+  if (!playgame) {
     button = createButton("PLAY");
     button.position(windowWidth / 2, windowHeight / 2 + 100);
     button.mousePressed(play);
@@ -38,16 +38,37 @@ function draw() {
     text("TIC", 0, -200);
     text("TAC", 0, -100);
     text("NOE", 0, 0);
-
   } else if (playgame) {
+    displayTurn();
+
     translate(controller.cameraX, controller.cameraY, 10);
     controller.draw();
     controller.update();
-
   }
 }
 
 function play() {
   playgame = true;
-  button.hide()
+  button.hide();
+}
+
+function displayTurn() {
+  noFill();
+  stroke(50);
+  strokeWeight(5);
+  
+  rectMode(CENTER);
+  if (controller.activePlayer === 2) {
+    line(-40, windowHeight / 3 - 40, 40, windowHeight / 3 + 40);
+    line(-40, windowHeight / 3 + 40, 40, windowHeight / 3 - 40)
+  } else if (controller.activePlayer === 3) {
+    strokeWeight(5);
+    circle(0, windowHeight / 3, 80);
+  }
+  noStroke()
+  rect(0, windowHeight / 3, 100, 100);
+
+  fill("#333")
+  textSize(60)
+  text("TURN", 0, windowHeight/2 - 250)
 }
