@@ -3,7 +3,25 @@
     padding: 0;
     box-sizing: border-box;
 }
+@font-face {
+    font-family: font;
+    src: url(../assets/EmblemaOne-Regular.ttf);
+  }
 
 body {
     display: flex;
+}
+
+button {
+    position: absolute;
+    left: 50%;
+    top: 50%;
+    transform: translateX(-50%);
+    font-family: font;
+    border: none;
+    color: #B3A950;
+    border-radius: .2rem;
+    background: #FFF38C;
+    font-size: 5rem;
+    padding: 2rem;
 }
