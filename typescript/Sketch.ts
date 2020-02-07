@@ -11,7 +11,7 @@ function setup() {
 }
 
 function draw() {
-  background(205, 55, 55)
+  background(0, 155, 175)
   // let fps = frameRate()
   // console.log(fps);
   translate(controller.cameraX, controller.cameraY, 10)

@@ -21,6 +21,16 @@ class Board {
     });
   }
 
+  public getPlayerCells(player: number): Array<Cell> {
+    const playerCellArray: Array<Cell> = []
+    this.cellArray.forEach(cell => {
+      if (cell.state === player) {
+        playerCellArray.push(cell)
+      }
+    });
+    return playerCellArray
+  }
+
   public updateLayout() {
     this.cellArray.forEach(cell => {
       if (cell.state != this.layout[cell.indexPos.y][cell.indexPos.x]) {
@@ -39,7 +49,7 @@ class Board {
     for (let i = 0; i < this.layout.length; i++) {
       for (let j = 0; j < this.layout.length; j++) {
         //generate cells
-        let size = windowHeight * .06;
+        let size = windowHeight * .1;
         let offset = this.layout.length/2
         let indexPos: PositionPoint = {x: j, y:i}
 
@@ -60,7 +70,7 @@ class Board {
     for (let i = 0; i < this.layout.length; i++) {
       for (let j = 0; j < this.layout.length; j++) {
         //generate cells
-        let size = windowHeight * .06;
+        let size = windowHeight * .1;
         let offset = this.layout.length / 2;
         let indexPos: PositionPoint = {x: j, y:i}
 
